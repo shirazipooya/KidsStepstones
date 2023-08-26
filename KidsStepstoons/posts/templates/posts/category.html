@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <main id="main">
+    <section class="single-post-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9 post-content" >
+            <!-- Start Single Post Content -->
+            <h3 class="category-title">{{ category.title }}</h3>
+            {% for post in category.posts.all %}
+            <div class="row px-4" data-aos="fade-up">
+              <div class="col-md-9">
+                <div>
+                  <div class="post-meta">
+                    <i class="bi bi-calendar px-1"></i><span>{{ post.jcreated }}</span>
+                  </div>
+                  <h5><a href="{% url 'posts:post' post.slug %}">{{ post.title }}</a></h5>
+                  <p class="mb-1 d-block">{{ post.body|truncatewords:30 }}</p>
+                  <div class="d-flex align-items-center author pb-4">
+                    <div class="photo"><img src="assets/img/person-1.jpg" alt="" class="img-fluid"></div>
+                    <div class="name">
+                      <h3 class="m-0 px-2">پویا شیرازی</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 d-flex align-items-center">
+                <a href="single-post.html" class="me-4 thumbnail">
+                  <img src="{{ post.thumbnail.url }}" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div>
+            {% endfor %}
+            <div class="text-start py-4 text-center">
+              <div class="custom-pagination">
+                <a href="#" class="prev">قبلی</a>
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#" class="next">بعدی</a>
+              </div>
+            </div>
+            <!-- End Single Post Content -->
+          </div>
+          <!-- Start Sidebar -->
+          <div class="col-md-3">
+            {% include "posts/inc/sidebar.html" %}
+          </div>
+          <!-- End Sidebar -->
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}

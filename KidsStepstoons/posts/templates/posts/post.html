@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <main id="main">
+    <section class="single-post-content">
+      <div class="container">
+        <div class="row">
+          <!-- Start Single Post Content -->
+          <div class="col-md-9 post-content" data-aos="fade-up">
+            <div class="single-post">
+              <div class="post-meta">
+                <i class="bi bi-person-fill px-1"></i><span class="date"></i>دکتر سکینه سلطانی کوهبانی</span>
+                <span class="mx-1"></span>
+                <i class="bi bi-calendar px-1"></i><span>{{ post.jcreated }}</span>
+              </div>
+              <h1 class="mb-5">{{ post.title }}</h1>
+              <p>{{ post.body }}</p>
+            </div>
+            <!-- End Single Post Content -->
+            <!-- Start Single Post Comments -->
+            {% include "posts/inc/comments.html" %}
+            <!-- End Single Post Comments -->
+            <!-- Start Single Post Comment Form -->
+            {% include "posts/inc/comment_form.html" %}
+            <!-- End Single Post Comment Form -->
+          </div>
+          <!-- Start Sidebar -->
+          <div class="col-md-3">
+            {% include "posts/inc/sidebar.html" %}
+          </div>
+          <!-- End Sidebar -->
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}
+
+

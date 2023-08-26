@@ -1,0 +1,42 @@
+{% load static %}
+
+<div class="aside-block">
+
+    <ul class="nav nav-pills custom-tab-nav mb-4" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pills-popular-tab" data-bs-toggle="pill" data-bs-target="#pills-popular" type="button" role="tab" aria-controls="pills-popular" aria-selected="true">محبوب‌ترین‌ها</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-latest-tab" data-bs-toggle="pill" data-bs-target="#pills-latest" type="button" role="tab" aria-controls="pills-latest" aria-selected="false">تازه‌ها</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="pills-tabContent">
+
+        <!-- Start Popular -->
+        <div class="tab-pane fade show active" id="pills-popular" role="tabpanel" aria-labelledby="pills-popular-tab">
+            <div class="post-entry-1 border-bottom">
+                <div class="post-meta">
+                    <i class="bi bi-person-fill px-1"></i><span class="date"></i>مریم احمدی</span>
+                        <span class="mx-1"></span>
+                    <i class="bi bi-calendar px-1"></i><span>سه‌شنبه، 25 مرداد 1402</span>
+                </div>
+                <h2 class="mb-2"><a href="#">چارچوب مفهومی سواد شکوفایی دیجیتال، بخش نخست</a></h2>
+            </div>
+        </div> 
+        <!-- End Popular -->
+
+        <!-- Start Latest -->
+        <div class="tab-pane fade" id="pills-latest" role="tabpanel" aria-labelledby="pills-latest-tab">
+            <div class="post-entry-1 border-bottom">
+                <div class="post-meta">
+                    <i class="bi bi-person-fill px-1"></i><span class="date"></i>مریم احمدی</span>
+                        <span class="mx-1"></span>
+                    <i class="bi bi-calendar px-1"></i><span>سه‌شنبه، 25 مرداد 1402</span>
+                </div>
+                <h2 class="mb-2"><a href="#">لجبازی پرخاشگرانه‌ی کودکان، تعریف، علت‌ها و راه‌های مدیریت آن</a></h2>
+            </div>
+        </div>
+        <!-- End Latest -->
+    </div>
+</div>
