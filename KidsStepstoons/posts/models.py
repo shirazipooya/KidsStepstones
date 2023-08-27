@@ -5,14 +5,16 @@ from extensions.utils import gregorian_to_jalali
 
 class Category(models.Model):
     
+    parent = models.ForeignKey('self', default=None, null=True, blank=True, on_delete=models.SET_NULL, related_name='children', verbose_name='زیردسته')
     title = models.CharField(max_length=200, verbose_name='عنوان دسته‌بندی')
     slug = models.SlugField(max_length=100, unique=True, verbose_name='آدرس دسته‌بندی')
     status = models.BooleanField(default=True, verbose_name='آیا نمایش داده شود؟')
+    psition = models.IntegerField(unique=True, verbose_name='موقعیت')
     
     class Meta:
         verbose_name = 'دسته‌بندی'
         verbose_name_plural = 'دسته‌بندی‌ها'
-        ordering = ['title']
+        ordering = ['parent__id', 'psition']
 
     def __str__(self):
         return self.title

@@ -1,0 +1,10 @@
+<ul>
+    {% for cat in cat.children.all %}
+        <li class="dropdown">
+            <a href="{% url 'posts:category' cat.slug %}"><span>{{ cat.title }}</span> <i class="bi bi-chevron-down dropdown-indicator px-1"></i></a>
+            {% if cat.children.all %}
+                {% include 'inc/category_loop.html' %}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>

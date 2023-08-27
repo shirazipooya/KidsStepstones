@@ -4,49 +4,24 @@
 <header id="header" class="header d-flex align-items-center fixed-tofa-pull-right">
 <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-    <a href="index.html" class="logo d-flex align-items-center">
+    <a href="{% url 'home:home' %}" class="logo d-flex align-items-center">
         <img src="{% static 'img/logo.png' %}" alt="">
     </a>
 
     <nav id="navbar" class="navbar">
     <ul>
-        <li><a href="index.html">خانه</a></li>
-        <li class="dropdown"><a href="category.html"><span>آموزش خلاق</span> <i class="bi bi-chevron-down dropdown-indicator px-1"></i></a>
-        <ul>
-            <li><a href="search-result.html">Search Result</a></li>
-            <li><a href="#">Drop Down 1</a></li>
-            <li><a href="#">Drop Down 2</a></li>
-            <li><a href="#">Drop Down 3</a></li>
-            <li><a href="#">Drop Down 4</a></li>
-        </ul>
-        </li>
-        <li class="dropdown"><a href="category.html"><span>روانشناسی کودک و نوجوان</span> <i class="bi bi-chevron-down dropdown-indicator px-1"></i></a>
-        <ul>
-            <li><a href="search-result.html">Search Result</a></li>
-            <li><a href="#">Drop Down 1</a></li>
-            <li><a href="#">Drop Down 2</a></li>
-            <li><a href="#">Drop Down 3</a></li>
-            <li><a href="#">Drop Down 4</a></li>
-        </ul>
-        </li>
-        <li class="dropdown"><a href="category.html"><span>کودک و زندگی</span> <i class="bi bi-chevron-down dropdown-indicator px-1"></i></a>
-        <ul>
-            <li><a href="search-result.html">Search Result</a></li>
-            <li><a href="#">Drop Down 1</a></li>
-            <li><a href="#">Drop Down 2</a></li>
-            <li><a href="#">Drop Down 3</a></li>
-            <li><a href="#">Drop Down 4</a></li>
-        </ul>
-        </li>
-        <li class="dropdown"><a href="category.html"><span>معرفی اسباب بازی</span> <i class="bi bi-chevron-down dropdown-indicator px-1"></i></a>
-        <ul>
-            <li><a href="search-result.html">Search Result</a></li>
-            <li><a href="#">Drop Down 1</a></li>
-            <li><a href="#">Drop Down 2</a></li>
-            <li><a href="#">Drop Down 3</a></li>
-            <li><a href="#">Drop Down 4</a></li>
-        </ul>
-        </li>
+        <li><a href="{% url 'home:home' %}">خانه</a></li>
+        {% for cat in categories %}        
+            {% if cat.parent == None %}
+                <li class="dropdown">
+                    <a href="{% url 'posts:category' cat.slug %}"><span>{{ cat.title }}</span> <i class="bi bi-chevron-down dropdown-indicator px-1"></i></a>
+                    {% if cat.children.all %}
+                        {% include 'inc/category_loop.html' %}
+                    {% endif %}
+                </li>
+            {% endif %}
+        {% endfor %}
+
     </ul>
     </nav><!-- .navbar -->
 
