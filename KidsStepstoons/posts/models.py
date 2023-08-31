@@ -1,6 +1,20 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils import timezone
+from django.utils.html import format_html
+
 from extensions.utils import gregorian_to_jalali
+
+
+class PostManager(models.Manager):
+    
+    def published(self):
+        return self.filter(status="p")
+
+class CategoryManager(models.Manager):
+    
+    def active(self):
+        return self.filter(status=True)
 
 
 class Category(models.Model):
@@ -18,9 +32,12 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+    
+    objects = CategoryManager()
 
 class Post(models.Model):
     
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name='نویسنده', null=True, related_name='posts')    
     title = models.CharField(max_length=200, verbose_name='عنوان مقاله')
     slug = models.SlugField(max_length=100, unique=True, verbose_name='آدرس اختصاصی')
     category = models.ManyToManyField(Category, verbose_name='دسته‌بندی', related_name='posts')
@@ -50,3 +67,9 @@ class Post(models.Model):
     def jupdated(self):
         return gregorian_to_jalali(self.updated)
     jupdated.short_description = 'زمان ویرایش'
+    
+    def thumbnail_tag(self):
+        return format_html('<img src="{}" width="80" hight="50" />'.format(self.thumbnail.url))
+    thumbnail_tag.short_description = 'عکس'
+    
+    objects = PostManager()

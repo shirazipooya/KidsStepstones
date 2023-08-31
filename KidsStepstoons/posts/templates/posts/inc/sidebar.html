@@ -1,4 +1,5 @@
 {% load static %}
+{% load base_tags %}
 
 <div class="aside-block">
 
@@ -15,27 +16,28 @@
 
         <!-- Start Popular -->
         <div class="tab-pane fade show active" id="pills-popular" role="tabpanel" aria-labelledby="pills-popular-tab">
+            {% for p in all_posts|slice:":10" %}
             <div class="post-entry-1 border-bottom">
                 <div class="post-meta">
-                    <i class="bi bi-person-fill px-1"></i><span class="date"></i>مریم احمدی</span>
-                        <span class="mx-1"></span>
-                    <i class="bi bi-calendar px-1"></i><span>سه‌شنبه، 25 مرداد 1402</span>
+                    {% url 'posts:author' p.author as author_url %}
+                    {% show_name_date author_url p.author.get_full_name p.jpublish %}
                 </div>
-                <h2 class="mb-2"><a href="#">چارچوب مفهومی سواد شکوفایی دیجیتال، بخش نخست</a></h2>
+                <h2 class="mb-2"><a href="#">{{ p.title }}</a></h2>
             </div>
+            {% endfor %}
         </div> 
         <!-- End Popular -->
 
         <!-- Start Latest -->
         <div class="tab-pane fade" id="pills-latest" role="tabpanel" aria-labelledby="pills-latest-tab">
+            {% for post in all_posts %}
             <div class="post-entry-1 border-bottom">
                 <div class="post-meta">
-                    <i class="bi bi-person-fill px-1"></i><span class="date"></i>مریم احمدی</span>
-                        <span class="mx-1"></span>
-                    <i class="bi bi-calendar px-1"></i><span>سه‌شنبه، 25 مرداد 1402</span>
+                    {% show_name_date_category 'پویا' post.jpublish post.category.all %}
                 </div>
-                <h2 class="mb-2"><a href="#">لجبازی پرخاشگرانه‌ی کودکان، تعریف، علت‌ها و راه‌های مدیریت آن</a></h2>
+                <h2 class="mb-2"><a href="#">{{ p.title }}</a></h2>
             </div>
+            {% endfor %}
         </div>
         <!-- End Latest -->
     </div>

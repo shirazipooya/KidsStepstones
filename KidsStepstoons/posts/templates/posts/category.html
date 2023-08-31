@@ -5,22 +5,23 @@
     <section class="single-post-content">
       <div class="container">
         <div class="row">
-          <div class="col-md-9 post-content" >
-            <!-- Start Single Post Content -->
+          <div class="col-md-9 post-content" data-aos="fade-up">
+
+            <!-- Start List Post Content -->
             <h3 class="category-title">{{ category.title }}</h3>
-            {% for post in category.posts.all %}
-            <div class="row px-4" data-aos="fade-up">
+            {% for post in object_list %}
+            <div class="row px-4" >
               <div class="col-md-9">
                 <div>
                   <div class="post-meta">
-                    <i class="bi bi-calendar px-1"></i><span>{{ post.jcreated }}</span>
+                    <i class="bi bi-calendar px-1"></i><span>{{ post.jpublish }}</span>
                   </div>
                   <h5><a href="{% url 'posts:post' post.slug %}">{{ post.title }}</a></h5>
                   <p class="mb-1 d-block">{{ post.body|truncatewords:30 }}</p>
                   <div class="d-flex align-items-center author pb-4">
                     <div class="photo"><img src="assets/img/person-1.jpg" alt="" class="img-fluid"></div>
                     <div class="name">
-                      <h3 class="m-0 px-2">پویا شیرازی</h3>
+                      <h3 class="m-0 px-2"><a href="{% url 'posts:author' post.author %}">{{ post.author.get_full_name }}</a></h3>
                     </div>
                   </div>
                 </div>
@@ -32,19 +33,40 @@
               </div>
             </div>
             {% endfor %}
+            <!-- End List Post Content -->
+
+            <!-- Start Pagination -->
             <div class="text-start py-4 text-center">
-              <div class="custom-pagination">
-                <a href="#" class="prev">قبلی</a>
-                <a href="#" class="active">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#" class="next">بعدی</a>
-              </div>
+              {% if page_obj.has_other_pages %}
+                <div class="custom-pagination">
+
+                  {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}" class="prev">قبلی</a>
+                  {% else %}
+                    <a class="prev">قبلی</a>
+                  {% endif %}
+
+                  {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                      <a class="active">{{ i }}</a>
+                    {% else %}
+                      <a href="?page={{ i }}">{{ i }}</a>
+                    {% endif %}
+                  {% endfor %}
+
+                  {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="next">بعدی</a>
+                  {% else %}
+                    <a class="next">بعدی</a>
+                  {% endif %}
+
+                </div>
+              {% endif %}
             </div>
-            <!-- End Single Post Content -->
+            <!-- End Pagination -->
+
           </div>
+
           <!-- Start Sidebar -->
           <div class="col-md-3">
             {% include "posts/inc/sidebar.html" %}

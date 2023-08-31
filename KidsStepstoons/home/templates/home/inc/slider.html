@@ -6,7 +6,7 @@
       <div class="col-12">
         <div class="swiper sliderFeaturedPosts">
           <div class="swiper-wrapper">
-            {% for post in posts %}
+            {% for post in posts|slice:":4" %}
                 <div class="swiper-slide">
                 <a href="{% url 'posts:post' post.slug %}" class="img-bg d-flex align-items-end" style="background-image: url({{ post.thumbnail.url }});" >
                     <div class="img-bg-inner">

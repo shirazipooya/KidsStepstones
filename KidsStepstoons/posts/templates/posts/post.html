@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load base_tags %}
 
 {% block content %}
   <main id="main">
@@ -9,12 +10,11 @@
           <div class="col-md-9 post-content" data-aos="fade-up">
             <div class="single-post">
               <div class="post-meta">
-                <i class="bi bi-person-fill px-1"></i><span class="date"></i>دکتر سکینه سلطانی کوهبانی</span>
-                <span class="mx-1"></span>
-                <i class="bi bi-calendar px-1"></i><span>{{ post.jcreated }}</span>
+                {% url 'posts:author' object.author as author_url %}
+                {% show_name_date author_url object.author.get_full_name object.jpublish %}
               </div>
-              <h1 class="mb-5">{{ post.title }}</h1>
-              <p>{{ post.body }}</p>
+              <h1 class="mb-5">{{ object.title }}</h1>
+              <p>{{ object.body }}</p>
             </div>
             <!-- End Single Post Content -->
             <!-- Start Single Post Comments -->

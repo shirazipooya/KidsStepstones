@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from posts.models import Post
+from django.db.models import Count
+from posts.models import Post, Category
 
 def home(request):
     return render(
         request=request,
         template_name='home/home.html',
         context={
-            "posts": Post.objects.filter(status='p')[:3],
+            "posts": Post.objects.published(),
+            "categories": Category.objects.annotate(number_of_posts = Count("posts")).filter(status=True)
         }
     )
