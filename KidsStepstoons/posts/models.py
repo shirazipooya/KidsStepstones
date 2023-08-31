@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.utils.html import format_html
@@ -56,6 +57,9 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
+    def get_absolute_url(self):
+        return reverse("dashboard:posts")
+    
     def jpublish(self):
         return gregorian_to_jalali(self.publish)
     jpublish.short_description = 'زمان انتشار'
@@ -71,5 +75,9 @@ class Post(models.Model):
     def thumbnail_tag(self):
         return format_html('<img src="{}" width="80" hight="50" />'.format(self.thumbnail.url))
     thumbnail_tag.short_description = 'عکس'
+    
+    def category_to_str(self):
+        return ", ".join([category.title for category in self.category.all()])
+    category_to_str.short_description = 'دسته‌بندی‌ها'
     
     objects = PostManager()

@@ -36,9 +36,5 @@ class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     ordering = ['-status', '-publish']
     actions = [make_published, make_draft]
-    
-    def category_to_str(self, obj):
-        return ", ".join([category.title for category in obj.category.all()])
-    category_to_str.short_description = 'دسته‌بندی‌ها'
 
 admin.site.register(Post, PostAdmin)

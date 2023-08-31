@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'extensions',
     'widget_tweaks',
+    'crispy_forms',
+    "crispy_bootstrap4",
 ]
 
 MIDDLEWARE = [
@@ -123,3 +125,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'accounts:index'
 LOGIN_URL = 'accounts:login'
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"

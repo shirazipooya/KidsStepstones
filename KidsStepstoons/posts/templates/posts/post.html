@@ -14,7 +14,7 @@
                 {% show_name_date author_url object.author.get_full_name object.jpublish %}
               </div>
               <h1 class="mb-5">{{ object.title }}</h1>
-              <p>{{ object.body }}</p>
+              <p>{{ object.body|safe }}</p>
             </div>
             <!-- End Single Post Content -->
             <!-- Start Single Post Comments -->
