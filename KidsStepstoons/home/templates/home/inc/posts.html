@@ -1,5 +1,6 @@
 {% load static %}
 {% load base_tags %}
+{% load humanize %}
 
 <!-- ======= Post Grid Section ======= -->
 <section id="posts" class="posts">
@@ -15,7 +16,7 @@
             {% for ps in postsSpecial|slice:":2" %}
                 <div class="post-entry-1 lg py-2">
                     <div class="post-meta">
-                        {% show_date ps.jpublish %}
+                        {% show_date ps.publish|naturaltime %}
                     </div>
                     <h5>
                         <a href="{% url 'posts:post' ps.slug %}">{{ ps.title }} </a>
@@ -37,11 +38,11 @@
             
         </div>  
 
-        <div class="col-lg-8">
+        <div class="col-lg-8" data-aos="fade-up">
 
             {% for cat in categories %}        
                 {% if cat.parent == None and cat.number_of_posts != 0 %}
-                    <div class="row g-2" data-aos="fade-up">
+                    <div class="row g-2" >
                         <div class="section-header d-flex justify-content-between align-items-center pb-0">
                             <h6 style="margin-bottom: 2px"><span class="bgtext px-1">تازه‌های</span>   <span>{{ cat.title }}</span></h6>
                             <div><a href="{% url 'posts:category' cat.slug %}" class="more">بیشتر ...</a></div>
@@ -53,7 +54,7 @@
                                         <a href="{% url 'posts:post' post.slug %}"><img src={{ post.thumbnail.url }} alt="" class="img-fluid"></a>
                                         <div class="post-meta">
                                             {% url 'posts:author' post.author as author_url %}
-                                            {% show_name_date author_url post.author.get_full_name post.jpublish %}
+                                            {% show_name_date author_url post.author.get_full_name post.publish|naturaltime %}
                                         </div>
                                         <h2>
                                             <a href="{% url 'posts:post' post.slug %}">{{ post.title }}</a>

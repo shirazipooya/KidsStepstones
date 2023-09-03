@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include('posts.urls'), name='posts'),
     path('', include('accounts.urls'), name='accounts'),
     path('dashboard/', include('dashboard.urls'), name='dashboard'),
+    path('comment/', include('comment.urls')),
 ]
 
 if settings.DEBUG:

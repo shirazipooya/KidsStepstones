@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load base_tags %}
+{% load humanize %}
 
 {% block content %}
   <main id="main">
@@ -15,7 +16,7 @@
               <div class="col-md-9">
                 <div>
                   <div class="post-meta">
-                    <i class="bi bi-calendar px-1"></i><span>{{ post.jpublish }}</span>
+                    <i class="bi bi-calendar px-1"></i><span>{{ post.publish|naturaltime }}</span>
                   </div>
                   <h5>
                     <a href="{% url 'posts:post' post.slug %}">{{ post.title }}</a>

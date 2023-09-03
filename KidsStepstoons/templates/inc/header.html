@@ -25,34 +25,16 @@
     </ul>
     </nav><!-- .navbar -->
 
-    <div class="position-relative">
-        {% comment %} <a href="#" class="mx-2" data-toggle="tooltip" data-placement="top" title="تماس با ما"><span class="bi bi-telephone-fill"></span></a> {% endcomment %}
-        {% comment %} <a href="#" class="mx-2"><span class="bi bi-telegram"></span></a>
-        <a href="#" class="mx-2"><span class="bi bi-twitter"></span></a>
-        <a href="#" class="mx-2"><span class="bi bi-instagram"></span></a>
-        <a href="#" class="mx-2"><span class="bi bi-youtube"></span></a> {% endcomment %}
-
-        
-        {% comment %} <a href="/search/" class="mx-2 js-search-open"><span class="bi-search"></span></a>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-        
-        <!-- ======= Search Form ======= -->
-        <div class="search-form-wrap js-search-form-wrap">
-            <form action="/search/" class="search-form">
-                <span class="icon bi-search"></span>
-                <input type="text" placeholder="جستجو ..." class="form-control">
-                <button class="btn js-search-close"><span class="bi-x"></span></button>
-            </form>
-        </div><!-- End Search Form --> {% endcomment %}
+    <div class="form-inline d-inline d-flex align-items-center align-self-center">
+        <a href="{% url 'dashboard:home' %}" class="mx-2" data-toggle="tooltip" data-placement="top" title="داشبورد مدیریتی"><span class="bi bi-speedometer"></span></a>
+        <form action="{% url 'posts:search' %}" >
+            <input name="q" class="form-control mr-sm-2" type="search" placeholder="جستجو ...">
+        </form>
         
     </div>
-    <div class="form-inline d-inline d-flex align-items-center align-self-center">
-<a href="{% url 'dashboard:home' %}" class="mx-2" data-toggle="tooltip" data-placement="top" title="داشبورد مدیریتی"><span class="bi bi-speedometer"></span></a>
-    <form action="{% url 'posts:search' %}" >
-        <input name="q" class="form-control mr-sm-2" type="search" placeholder="جستجو ...">
-    </form>
-    
-</div>
+    <div class="position-relative">
+        <i class="bi bi-list mobile-nav-toggle"></i>
+    </div>
 </div>
 
 </header><!-- End Header -->

@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% load base_tags %}
+{% load comment_tags %}
 
 {% block content %}
   <main id="main">
@@ -11,7 +13,7 @@
             <div class="single-post">
               <div class="post-meta">
                 {% url 'posts:author' object.author as author_url %}
-                {% show_name_date author_url object.author.get_full_name object.jpublish %}
+                {% show_name_date author_url object.author.get_full_name object.publish|naturaltime %}
               </div>
               <h3 class="mb-3">
                 {{ object.title }}
@@ -26,9 +28,9 @@
             <!-- Start Single Post Comments -->
             {% include "posts/inc/comments.html" %}
             <!-- End Single Post Comments -->
-            <!-- Start Single Post Comment Form -->
+            {% comment %} <!-- Start Single Post Comment Form -->
             {% include "posts/inc/comment_form.html" %}
-            <!-- End Single Post Comment Form -->
+            <!-- End Single Post Comment Form --> {% endcomment %}
           </div>
           <!-- Start Sidebar -->
           <div class="col-md-3">

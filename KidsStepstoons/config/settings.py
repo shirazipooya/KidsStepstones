@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -8,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-jiif^k1x7(hahlj6okrtv2s(!$orq12ybplq^*9a(j72@j@wu8'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -25,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'home.apps.HomeConfig',
     'accounts.apps.AccountsConfig',
     'dashboard.apps.DashboardConfig',
@@ -34,6 +37,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap4',
     'crispy_bootstrap5',
+    'comment',
 ]
 
 MIDDLEWARE = [
@@ -101,12 +105,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'fa-ir'
-
 TIME_ZONE = 'Asia/Tehran'
+USE_TZ = True
 
 USE_I18N = True
+USE_L18N = True
+COMMENT_ALLOW_TRANSLATION = True
 
-USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -134,3 +139,11 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 
 AUTH_USER_MODEL = "accounts.User"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_USE_TLS = True
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
