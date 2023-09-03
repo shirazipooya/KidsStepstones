@@ -1,8 +1,9 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import User
+from accounts.models import User
 from django.utils import timezone
 from django.utils.html import format_html
+
 
 from extensions.utils import gregorian_to_jalali
 
@@ -47,7 +48,8 @@ class Post(models.Model):
     publish = models.DateTimeField(default=timezone.now, verbose_name='زمان انتشار')
     created = models.DateTimeField(auto_now_add=True, verbose_name='زمان ایجاد')
     updated = models.DateTimeField(auto_now=True, verbose_name='زمان ویرایش')
-    status = models.CharField(max_length=1, choices=(('d', 'پیش‌نویس'), ('p', 'منتشرشده')), default='d', verbose_name='وضعیت انتشار')
+    status = models.CharField(max_length=1, choices=(('d', 'پیش‌نویس'), ('p', 'منتشرشده'), ('i', 'در حال بررسی'), ('b', 'برگشت داده شده')), default='d', verbose_name='وضعیت انتشار')
+    is_special = models.BooleanField(default=False, verbose_name='مقاله ویژه')
     
     class Meta:
         verbose_name = 'پست'

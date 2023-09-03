@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
+{% load base_tags %}
+
 
 {% block content %}
   <main id="main">
     <section class="single-post-content">
       <div class="container">
         <div class="row">
+          <div class="d-flex align-items-center text-start author pb-4">
+            <div class="photo"><img src={{ author.avatar.url }} alt="" class="img-fluid"></div>
+              <div class="name px-3">
+                  {{ author.get_full_name }}
+              </div>
+          </div>
           <div class="col-md-9 post-content" data-aos="fade-up">
 
             <!-- Start List Post Content -->
-            <h3 class="category-title">{{ author.get_full_name }}</h3>
             {% for post in object_list %}
             <div class="row px-4" >
               <div class="col-md-9">
@@ -16,8 +23,13 @@
                   <div class="post-meta">
                     <i class="bi bi-calendar px-1"></i><span>{{ post.jpublish }}</span>
                   </div>
-                  <h5><a href="{% url 'posts:post' post.slug %}">{{ post.title }}</a></h5>
-                  <p class="mb-1 d-block">{{ post.body|truncatewords:30 }}</p>
+                  <h5>
+                    <a href="{% url 'posts:post' post.slug %}">{{ post.title }}</a>
+                    {% if post.is_special %}
+                      {% special_badge %}
+                    {% endif %}
+                  </h5>
+                  <p class="mb-1 d-block">{{ post.body|safe|truncatewords:30 }}</p>
                   <div class="d-flex align-items-center author pb-4">
                     <div class="photo"><img src="assets/img/person-1.jpg" alt="" class="img-fluid"></div>
                     <div class="name">

@@ -1,4 +1,5 @@
 {% load static %}
+{% load base_tags %}
 
 <section id="hero-slider" class="hero-slider">
   <div class="container-md" data-aos="fade-in">
@@ -10,8 +11,13 @@
                 <div class="swiper-slide">
                 <a href="{% url 'posts:post' post.slug %}" class="img-bg d-flex align-items-end" style="background-image: url({{ post.thumbnail.url }});" >
                     <div class="img-bg-inner">
-                        <h3>{{ post.title }}</h3>
-                        <p>{{ post.body|truncatewords:20 }}</p>
+                        <h3>
+                          {{ post.title }}
+                          {% if post.is_special %}
+                            {% special_badge %}
+                          {% endif %}
+                        </h3>
+                        <p>{{ post.body|safe|striptags|truncatewords:20 }}</p>
                     </div>
                 </a>
                 </div>

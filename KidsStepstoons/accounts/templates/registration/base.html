@@ -1,19 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-
-    {% include "registration/inc/head.html" %}
-
-    <body {% block styleBody %}{% endblock styleBody %}>
-
-        {% block content %}{% endblock content %}
-
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-
-        {% include "registration/inc/scripts.html" %}
-
-    </body>
-
+<html lang="fa">
+  {% include "registration/inc/head.html" %}
+  <body {% block styleBody %}{% endblock styleBody %}>
+    {% block content %}{% endblock content %}
+    {% include "registration/inc/scripts.html" %}
+  </body>
 </html>

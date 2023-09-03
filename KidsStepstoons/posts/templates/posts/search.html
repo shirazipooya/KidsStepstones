@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load base_tags %}
+
+{% block content %}
+  <main id="main">
+    <section class="single-post-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9 post-content" data-aos="fade-up">
+
+            <!-- Start List Post Content -->
+            <span class="category-title">نتایج جستجو برای: <strong>{{ search }}</strong></span>
+            {% for post in object_list %}
+            <div class="row px-4" >
+              <div class="col-md-9">
+                <div>
+                  <div class="post-meta">
+                    <i class="bi bi-calendar px-1"></i><span>{{ post.jpublish }}</span>
+                  </div>
+                  <h5>
+                    <a href="{% url 'posts:post' post.slug %}">{{ post.title }}</a>
+                      {% if post.is_special %}
+                        {% special_badge %}
+                      {% endif %}
+                  </h5>
+                  <p class="mb-1 d-block">{{ post.body|safe|truncatewords:30 }}</p>
+                  <div class="d-flex align-items-center author pb-4">
+                    <div class="photo"><img src="assets/img/person-1.jpg" alt="" class="img-fluid"></div>
+                    <div class="name">
+                      <h3 class="m-0 px-2"><a href="{% url 'posts:author' post.author %}">{{ post.author.get_full_name }}</a></h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 d-flex align-items-center">
+                <a href="single-post.html" class="me-4 thumbnail">
+                  <img src="{{ post.thumbnail.url }}" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div>
+            {% endfor %}
+            <!-- End List Post Content -->
+
+            <!-- Start Pagination -->
+            <div class="text-start py-4 text-center">
+              {% if page_obj.has_other_pages %}
+                <div class="custom-pagination">
+
+                  {% if page_obj.has_previous %}
+                    <a href="{% url 'posts:search' page_obj.previous_page_number %}?q={{search}}" class="prev">قبلی</a>
+                  {% else %}
+                    <a class="prev">قبلی</a>
+                  {% endif %}
+
+                  {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                      <a class="active">{{ i }}</a>
+                    {% else %}
+                      <a href="{% url 'posts:search' i %}?q={{search}}">{{ i }}</a>
+                    {% endif %}
+                  {% endfor %}
+
+                  {% if page_obj.has_next %}
+                    <a href="{% url 'posts:search' page_obj.next_page_number %}?q={{search}}" class="next">بعدی</a>
+                  {% else %}
+                    <a class="next">بعدی</a>
+                  {% endif %}
+
+                </div>
+              {% endif %}
+            </div>
+            <!-- End Pagination -->
+
+          </div>
+
+          <!-- Start Sidebar -->
+          <div class="col-md-3">
+            {% include "posts/inc/sidebar.html" %}
+          </div>
+          <!-- End Sidebar -->
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}

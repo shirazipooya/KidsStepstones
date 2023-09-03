@@ -4,7 +4,7 @@
 {% block content %}
   <main id="main">
     <section class="single-post-content">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
           <!-- Start Single Post Content -->
           <div class="col-md-9 post-content" data-aos="fade-up">
@@ -13,7 +13,13 @@
                 {% url 'posts:author' object.author as author_url %}
                 {% show_name_date author_url object.author.get_full_name object.jpublish %}
               </div>
-              <h1 class="mb-5">{{ object.title }}</h1>
+              <h3 class="mb-3">
+                {{ object.title }}
+                {% if object.is_special %}
+                  {% special_badge %}
+                {% endif %}
+              </h3>
+              <img src="{{ object.thumbnail.url }}" alt="{{ object.title }}" class="img-fluid">
               <p>{{ object.body|safe }}</p>
             </div>
             <!-- End Single Post Content -->

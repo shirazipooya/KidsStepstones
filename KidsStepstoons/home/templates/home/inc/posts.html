@@ -10,22 +10,30 @@
             
             <div class="section-header d-flex justify-content-between align-items-center pb-0">
                 <h6 style="margin-bottom: 2px"><span class="bgtext px-1">ویژه‌ها</span></h6>
-                <div><a href="category.html" class="more">بیشتر ...</a></div>
+                <div><a href="{% url 'posts:special' %}" class="more">بیشتر ...</a></div>
             </div>
-            <div class="post-entry-1 lg py-2">
-                <a href="single-post.html"><img src="{% static 'img/post-landscape-1.jpg' %}" alt="" class="img-fluid"></a>
-                <div class="post-meta">
-                    {% show_date post.jpublish %}
-                </div>
-                <h3><a href="single-post.html">اعتیاد اینترنتی چیست؟</a></h3>
-                <p class="mb-1 d-block">این نوع اعتیاد، مشکلی در حال رشد و تسری و هدیه  قرن اطلاعات وپیامد دهکده جهانی شدن است</p>
-                <div class="d-flex align-items-center text-start author pb-4">
-                    <div class="name">
-                        <h3 class="m-0 px-2">دکتر سکینه سلطانی کوهبانی</h3>
+            {% for ps in postsSpecial|slice:":2" %}
+                <div class="post-entry-1 lg py-2">
+                    <div class="post-meta">
+                        {% show_date ps.jpublish %}
                     </div>
-                    <div class="photo"><img src="{% static 'img/person-2.jpg' %}" alt="" class="img-fluid"></div>
+                    <h5>
+                        <a href="{% url 'posts:post' ps.slug %}">{{ ps.title }} </a>
+                        {% if ps.is_special %}
+                            {% special_badge %}
+                        {% endif %}
+                    </h5>
+                    <p class="mb-1 d-block">{{ ps.body|safe|truncatewords:"30" }}</p>
+                    <div class="d-flex align-items-center text-start author pb-4">
+                        <div class="name">
+                            {% url 'posts:author' ps.author as author_url %}
+                            {% show_name author_url ps.author.get_full_name %}
+                        </div>
+                        <div class="photo"><img src={{ ps.author.avatar.url }} alt="" class="img-fluid"></div>
+                    </div>
+                    <a href="{% url 'posts:post' ps.slug %}"><img src={{ ps.thumbnail.url }} alt="" class="img-fluid"></a>
                 </div>
-            </div>
+            {% endfor %}
             
         </div>  
 
@@ -42,13 +50,17 @@
                             {% if post.status == 'p' %}
                                 <div class="col-lg-4">
                                     <div class="post-entry-1">
-                                        {% comment %} <a href="{% url 'posts:post' post.slug %}"><img src="{% static 'img/post-landscape-2.jpg' %}" alt="" class="img-fluid"></a> {% endcomment %}
                                         <a href="{% url 'posts:post' post.slug %}"><img src={{ post.thumbnail.url }} alt="" class="img-fluid"></a>
                                         <div class="post-meta">
                                             {% url 'posts:author' post.author as author_url %}
                                             {% show_name_date author_url post.author.get_full_name post.jpublish %}
                                         </div>
-                                        <h2><a href="{% url 'posts:post' post.slug %}">{{ post.title }}</a></h2>
+                                        <h2>
+                                            <a href="{% url 'posts:post' post.slug %}">{{ post.title }}</a>
+                                            {% if post.is_special %}
+                                                {% special_badge %}
+                                            {% endif %}
+                                        </h2>
                                     </div>
                                 </div>
                             {% endif %}

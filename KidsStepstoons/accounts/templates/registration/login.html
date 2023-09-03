@@ -3,85 +3,102 @@
 {% load static %}
 
 {% block styleBody %}
-    class="bg-gradient-white"
+    class="hold-transition login-page"
 {% endblock styleBody %}
 
 {% block content %}
-    <div class="container">
 
-        <!-- Outer Row -->
-        <div class="row justify-content-center">
 
-            <div class="col-xl-10 col-lg-12 col-md-9">
+  <div class="login-box">
+    <div class="card card-outline card-primary">
 
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row justify-content-center">
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">خوش آمدید!</h1>
-                                    </div>
-                                    {% if form.non_field_errors %}
-                                        <div class="text-center alert alert-danger" role="alert">
-                                            {% for error in form.non_field_errors %}
-                                                <span>{{ error }}</span>
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                    <form action="" method="post" class="user" novalidate>
-                                        {% csrf_token %}
+      <!-- Statrt Card Header -->
+      <div class="card-header text-center">
+        <a href="/" class="logo">
+          <img src="{% static 'img/logo - primary.png' %}" width="250">
+        </a>
+      </div>
+      <!-- End Card Header -->
 
-                                        <div class="form-group">
-                                            {{ form.username|add_class:"form-control form-control-user text-center"|attr:"placeholder:نام کاربری" }}
-                                            {% if form.username.errors %}
-                                                <div class="text-center text-danger small pt-2" role="alert">
-                                                    {% for error in form.username.errors %}
-                                                        {{ error }}
-                                                    {% endfor %}
-                                                </div>
-                                            {% endif %}
-                                        </div>
+      <!-- Statrt Card Body -->
+      <div class="card-body">
+        {% if form.non_field_errors %}
+          <div class="text-center alert alert-danger" role="alert">
+            {% for error in form.non_field_errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
 
-                                        <div class="form-group">
-                                            {{ form.password|add_class:"form-control form-control-user text-center"|attr:"placeholder:گذرواژه" }}
-                                            {% if form.password.errors %}
-                                                <div class="text-center text-danger small pt-2" role="alert">
-                                                    {% for error in form.password.errors %}
-                                                        {{ error }}
-                                                    {% endfor %}
-                                                </div>
-                                            {% endif %}
-                                        </div>
+        <form action="" method="post" novalidate>
 
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            ورود
-                                        </button>
+          {% csrf_token %}
 
-                                        <hr>
 
-                                        <a href="index.html" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> ورود با حساب کاربری گوگل
-                                        </a>
-                                    </form>
 
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="forgot-password.html">پسور خود را فراموش کرده‌اید؟</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="register.html">ایجاد حساب کاربری جدید</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+          <div class="input-group mb-1">
+            {{ form.username|add_class:"form-control text-center"|attr:"placeholder:نام کاربری" }}
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
             </div>
+          </div>
+          {% if form.username.errors %}
+            <div class="text-center text-danger small pt-0" role="alert">
+              {% for error in form.username.errors %}
+                  <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
 
+          <div class="input-group mb-1">
+            {{ form.password|add_class:"form-control text-center"|attr:"placeholder:گذرواژه" }}
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          {% if form.password.errors %}
+            <div class="text-center text-danger small pt-0" role="alert">
+              {% for error in form.password.errors %}
+                  <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary btn-block" style="text-align: center !important;">ورود</button>
+          </div>
+
+        </form>
+
+        <div class="social-auth-links mt-2 mb-3">
+          <a href="#" class="btn btn-block btn-danger">
+            <i class="fab fa-google-plus mr-2"></i> ورود با حساب کاربری گوگل
+          </a>
         </div>
 
+        <!-- Statrt Card Footer -->
+        <div class="card-footer border">
+
+        <p class="mb-2 mr-2">
+          <a href="forgot-password.html">پسور خود را فراموش کرده‌اید؟</a>
+        </p>
+        
+        <p class="mb-0 mr-2">
+          <a href="register.html" class="text-center">ایجاد حساب کاربری جدید</a>
+        </p>
+        </div>
+        <!-- End Card Footer -->
+
+
+      </div>
+      <!-- End Card Body -->
+
     </div>
+  </div>
+
+
 {% endblock content %}

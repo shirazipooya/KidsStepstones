@@ -8,6 +8,7 @@ def home(request):
         template_name='home/home.html',
         context={
             "posts": Post.objects.published(),
-            "categories": Category.objects.annotate(number_of_posts = Count("posts")).filter(status=True)
+            "categories": Category.objects.annotate(number_of_posts = Count("posts")).filter(status=True),
+            "postsSpecial": Post.objects.filter(is_special=True)
         }
     )

@@ -30,7 +30,7 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'thumbnail_tag', 'slug', 'author', 'status', 'jcreated', 'jupdated', 'jpublish', 'category_to_str')
+    list_display = ('title', 'thumbnail_tag', 'slug', 'author', 'is_special', 'status', 'jcreated', 'jupdated', 'jpublish', 'category_to_str')
     list_filter = ('status', 'author')
     search_fields = ('title', 'body')
     prepopulated_fields = {'slug': ('title',)}

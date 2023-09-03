@@ -17,6 +17,7 @@ body {
 
 *{
     direction: rtl !important;
+    text-align: right !important;
 }
 .layout-fixed .main-sidebar {
     right: 0;

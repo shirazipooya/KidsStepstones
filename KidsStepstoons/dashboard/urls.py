@@ -1,9 +1,17 @@
 from django.urls import path
-from .views import home, PostListView, PostCreateView
+from .views import (
+    HomeView,
+    PostListView,
+    PostCreateView,
+    PostUpdateView,
+    PostDeleteView,
+)
 
 app_name = "dashboard"
 urlpatterns = [
-    path("", home, name="home"),
+    path("", HomeView.as_view(), name="home"),
     path("posts/", PostListView.as_view(), name="posts"),
     path("posts/create", PostCreateView.as_view(), name="post-create"),
+    path("posts/update/<int:pk>", PostUpdateView.as_view(), name="post-update"),
+    path("posts/delete/<int:pk>", PostDeleteView.as_view(), name="post-delete"),
 ]

@@ -1,0 +1,27 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}
+    لیست مقالات
+{% endblock title %}
+
+{% block content %}
+
+
+<div class="card card-danger m-auto">
+    <div class="card-header">
+        <h3 class="card-title mb-0 float-left">تایید حذف مقاله</h3>
+    </div>
+    <div class="card-body py-3">
+    <form method="post" class="text-center">
+        {% csrf_token %}
+        <p>
+            آیا از حذف مقاله «{{ object }}» از «{{ object.author.get_full_name }}» مطمئن هستید؟
+        </p>
+        <input class="btn btn-danger" type="submit" value="حذف">
+        <a class="btn btn-info" href="{% url 'dashboard:posts' %}">انصراف</a>
+     </div>
+</div>
+
+{% endblock content %}
+

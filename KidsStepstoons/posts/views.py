@@ -1,9 +1,12 @@
 from typing import Any, Dict
-from django.contrib.auth.models import User
-from django.views.generic import ListView, DeleteView
+from accounts.models import User
+from django.views.generic import ListView, DeleteView, DetailView
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Post, Category
+from accounts.mixins import AuthorAccessMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 
 
 class PostDetail(DeleteView):        
@@ -12,6 +15,15 @@ class PostDetail(DeleteView):
     def get_object(self):
         slug = self.kwargs.get('slug')
         return get_object_or_404(Post.objects.published(), slug=slug) 
+
+
+class PostPreview(AuthorAccessMixin, DetailView):
+    template_name = 'posts/post.html'
+     
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Post, pk=pk)
+
 
 
 class CategoryList(ListView):    
@@ -42,4 +54,30 @@ class AuthorList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['author'] = author
+        return context
+
+
+class SpecialList(LoginRequiredMixin, ListView):
+    model = Post
+    template_name = 'posts/special.html'
+    paginate_by = 5
+    
+    
+    def get_queryset(self):
+        return Post.objects.filter(is_special=True).order_by('-publish')
+
+
+
+class SearchList(ListView):    
+    template_name = 'posts/search.html'
+    paginate_by = 5
+        
+    def get_queryset(self):
+        global search
+        search = self.request.GET.get('q')
+        return Post.objects.filter(Q(title__icontains=search) | Q(body__icontains=search)).order_by('-publish')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search'] = search
         return context

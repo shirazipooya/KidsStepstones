@@ -9,11 +9,29 @@ def title(data="همقدم با کودک"):
     return data
 
 @register.simple_tag
+def special_badge(txt="ویژه"):
+    
+    result = """
+        <span class="badge bg-danger"> %s </span>
+    """ % txt
+    
+    return mark_safe(result)
+
+@register.simple_tag
 def show_date(date):
     
     result = """
         <i class='bi bi-calendar px-1'></i><span>%s</span>
     """ % date
+    
+    return mark_safe(result)
+
+@register.simple_tag
+def show_name(url, name):
+    
+    result = """
+        <span class="date"></i><a href=%s class=post-meta>%s</a></span>
+    """ % (url, name)
     
     return mark_safe(result)
 
@@ -52,4 +70,14 @@ def sidebar():
 def header():
     return {
         "categories": Category.objects.filter(status=True)
+    }
+    
+@register.inclusion_tag('dashboard/inc/link.html')
+def link(request, link_name, content, icon):
+    return {
+        "request": request,
+        "link_name": link_name,
+        "link": "dashboard:%s" % link_name,
+        "content": content,
+        "icon": icon
     }
