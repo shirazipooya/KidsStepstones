@@ -20,7 +20,7 @@
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
         <img
-          src="{% static 'dashboard/dist/img/user2-160x160.jpg' %}"
+          src={{ user.avatar.url }}
           class="img-circle elevation-2"
           alt="User Image"
         />
@@ -47,25 +47,21 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
+            {% if user.is_superuser or user.is_author %}
+              <li class="nav-item">
+                {% link request 'home' 'خانه' 'fa fa-home' %}
+              </li>
+              <li class="nav-item">
+                {% link request 'posts' 'لیست مقالات' 'fa fa-list' %}
+              </li>
+              <li class="nav-item">
+                {% link request 'post-create' 'افزودن مقاله جدید' 'fa fa-edit' %}
+              </li>
+            {% endif %}
             <li class="nav-item">
-              {% link request 'home' 'خانه' 'fa fa-home' %}
-            </li>
-            <li class="nav-item">
-              {% link request 'posts' 'لیست مقالات' 'fa fa-list' %}
-            </li>
-            <li class="nav-item">
-              {% link request 'post-create' 'افزودن مقاله جدید' 'fa fa-edit' %}
+              {% link request 'profile' 'صفحه کاربری' 'fa fa-user' %}
             </li>
           </ul>
-        </li>
-        <li class="nav-item">
-          <a href="pages/widgets.html" class="nav-link">
-            <i class="nav-icon fa fa-user"></i>
-            <p>
-              صفحه کاربری
-              <span class="right badge badge-danger">جدید</span>
-            </p>
-          </a>
         </li>
       </ul>
     </nav>

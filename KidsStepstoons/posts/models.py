@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from accounts.models import User
+from account.models import User
 from django.utils import timezone
 from django.utils.html import format_html
 from django.contrib.contenttypes.fields import GenericRelation

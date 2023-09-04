@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'home.apps.HomeConfig',
-    'accounts.apps.AccountsConfig',
+    'account.apps.AccountConfig',
     'dashboard.apps.DashboardConfig',
     'posts.apps.PostsConfig',
     'extensions',
@@ -130,15 +130,15 @@ MEDIA_ROOT = BASE_DIR / "media_root"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'dashboard:home'
-LOGIN_URL = 'accounts:login'
-LOGOUT_REDIRECT_URL = 'accounts:login'
+LOGIN_URL = 'account:login'
+LOGOUT_REDIRECT_URL = 'account:login'
 
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 
-AUTH_USER_MODEL = "accounts.User"
+AUTH_USER_MODEL = "account.User"
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST')

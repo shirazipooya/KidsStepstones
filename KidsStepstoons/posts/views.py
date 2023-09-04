@@ -1,10 +1,10 @@
 from typing import Any, Dict
-from accounts.models import User
+from account.models import User
 from django.views.generic import ListView, DeleteView, DetailView
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Post, Category
-from accounts.mixins import AuthorAccessMixin
+from account.mixins import AuthorAccessMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 

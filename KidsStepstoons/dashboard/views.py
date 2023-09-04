@@ -1,8 +1,12 @@
-from typing import Any, Optional
+from typing import Any, Dict, Optional
 from django.db import models
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from account.models import User
+from .forms import ProfileForm
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from django.views.generic import (
     ListView,
     DetailView,
@@ -11,11 +15,12 @@ from django.views.generic import (
     DeleteView
 )
 from posts.models import Post, Category
-from accounts.mixins import (
+from account.mixins import (
     FieldsMixin,
     FormValidMixin,
     AuthorAccessMixin,
     SuperuserAccessMixin,
+    AuthorsAccessMixin
 )
 
 
@@ -25,7 +30,7 @@ class HomeView(LoginRequiredMixin, ListView):
     template_name = "dashboard/home.html"
 
 
-class PostListView(LoginRequiredMixin, ListView):
+class PostListView(AuthorsAccessMixin, ListView):
     model = Post
     template_name = "dashboard/posts.html"
     
@@ -38,7 +43,7 @@ class PostListView(LoginRequiredMixin, ListView):
             return Post.objects.filter(author=self.request.user).order_by('-publish')
 
 
-class PostCreateView(LoginRequiredMixin, FieldsMixin, FormValidMixin, CreateView):
+class PostCreateView(AuthorsAccessMixin, FieldsMixin, FormValidMixin, CreateView):
     model = Post
     template_name = "dashboard/post_create_update.html"
     
@@ -59,3 +64,37 @@ class PostDeleteView(SuperuserAccessMixin, DeleteView):
     model = Post
     template_name = "dashboard/post_delete.html"
     success_url = reverse_lazy("dashboard:posts")
+
+
+
+class Profile(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = ProfileForm
+    template_name = 'dashboard/profile.html'
+    success_url = reverse_lazy("dashboard:profile")
+    
+    def get_object(self):
+        return User.objects.get(pk=self.request.user.pk)
+    
+    def get_form_kwargs(self):
+        kwargs = super(Profile, self).get_form_kwargs()
+        kwargs.update(
+            {'user': self.request.user}
+        )
+        return kwargs
+
+
+class Login(LoginView):
+    
+    def get_success_url(self):
+        user = self.request.user
+        if user.is_superuser or user.is_author:
+            return reverse_lazy("dashboard:home")
+        else:
+            return reverse_lazy("dashboard:profile")
+
+
+
+class PasswordChange(PasswordChangeView):
+    success_url = reverse_lazy("dashboard:password_change_done")
+    template_name = "registration/password_change_form.html"  

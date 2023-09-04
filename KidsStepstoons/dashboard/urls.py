@@ -5,6 +5,7 @@ from .views import (
     PostCreateView,
     PostUpdateView,
     PostDeleteView,
+    Profile,
 )
 
 app_name = "dashboard"
@@ -14,4 +15,5 @@ urlpatterns = [
     path("posts/create", PostCreateView.as_view(), name="post-create"),
     path("posts/update/<int:pk>", PostUpdateView.as_view(), name="post-update"),
     path("posts/delete/<int:pk>", PostDeleteView.as_view(), name="post-delete"),
+    path("profile/", Profile.as_view(), name="profile"),
 ]

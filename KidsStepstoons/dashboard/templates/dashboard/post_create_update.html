@@ -41,6 +41,18 @@
                     <div class="form-group col-md-3">
                         {{ form.status|as_crispy_field }}
                     </div>
+                {% else %}
+                    <div id="div_id_status" class="form-group col-md-6">
+                        <label for="id_status" class="requiredField">
+                            وضعیت انتشار<span class="asteriskField">*</span>
+                        </label>
+                        <div>
+                            <select name="status" class="select form-control" id="id_status">
+                                <option value="d" selected="">پیش&zwnj;نویس</option>
+                                <option value="i">ارسال برای ادمین</option>
+                            </select>
+                        </div>
+                    </div>
                 {% endif %}
                 <div class="form-group col-md-3">
                     {{ form.publish|as_crispy_field }}
