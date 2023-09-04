@@ -27,7 +27,6 @@
                 <div class="form-group col-md-4">
                     {{ form.username|as_crispy_field }}
                 </div>
-
             </div>
 
             
@@ -46,6 +45,14 @@
             <div class="form-row">
                 <div class="form-group col-md-12">
                     {{ form.is_author|as_crispy_field }}
+                </div>
+            </div>
+
+
+            <div class="form-row alert alert-warning">
+                <div class="form-group col-md-12">
+                    <label>رمز عبور:</label>
+                    <span>برای تغییر رمز عبور <a href="{% url 'account:password_change' %}">اینجا</a> کلیک کنید.</span>
                 </div>
             </div>
         </div>

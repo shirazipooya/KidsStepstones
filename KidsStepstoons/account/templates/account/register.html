@@ -1,0 +1,150 @@
+{% extends 'account/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block styleBody %}
+    class="hold-transition register-page"
+{% endblock styleBody %}
+
+{% block content %}
+
+
+  <div class="login-box">
+    <div class="card card-outline card-primary">
+
+      <!-- Statrt Card Header -->
+      <div class="card-header text-center">
+        <a href="/" class="logo">
+          <img src="{% static 'img/logo - primary.png' %}" width="250">
+        </a>
+      </div>
+      <!-- End Card Header -->
+
+      <!-- Statrt Card Body -->
+      <div class="card-body">
+        {% if form.non_field_errors %}
+          <div class="text-center alert alert-danger" role="alert">
+            {% for error in form.non_field_errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <form action="" method="post" novalidate>
+
+          {% csrf_token %}
+
+
+
+          <div class="input-group mb-1">
+            {{ form.username|add_class:"form-control text-center"|attr:"placeholder:نام کاربری" }}
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+          {% if form.username.errors %}
+            <div class="text-center text-danger small pt-0" role="alert">
+              {% for error in form.username.errors %}
+                  <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <div class="input-group mb-1">
+            {{ form.email|add_class:"form-control text-center"|attr:"placeholder:ایمیل" }}
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          {% if form.email.errors %}
+            <div class="text-center text-danger small pt-0" role="alert">
+              {% for error in form.email.errors %}
+                  <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <div class="input-group mb-1">
+            {{ form.password1|add_class:"form-control text-center"|attr:"placeholder:گذرواژه" }}
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          {% if form.password1.errors %}
+            <div class="text-center text-danger small pt-0" role="alert">
+              {% for error in form.password1.errors %}
+                  <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <div class="input-group mb-1">
+            {{ form.password2|add_class:"form-control text-center"|attr:"placeholder:تایید گذرواژه" }}
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          {% if form.password2.errors %}
+            <div class="text-center text-danger small pt-0" role="alert">
+              {% for error in form.password2.errors %}
+                  <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+
+          <div class="row pt-3">
+            {% comment %} <div class="col-8">
+              <div class="icheck-primary">
+                <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                <label for="agreeTerms" class="px-2">
+                با  <a href="#"> شرایط </a> موافق هستم.
+                </label>
+              </div>
+            </div> {% endcomment %}
+            <!-- /.col -->
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary btn-block" style="text-align: center !important;">ثبت نام</button>
+            </div>
+            <!-- /.col -->
+          </div>
+
+        </form>
+
+        <div class="social-auth-links mt-2 mb-3">
+          <a href="#" class="btn btn-block btn-danger">
+            <i class="fab fa-google-plus mr-2"></i> ورود با حساب کاربری گوگل
+          </a>
+        </div>
+
+        <!-- Statrt Card Footer -->
+        <div class="card-footer border">
+
+          <p class="mb-0 mr-2">
+            <a href="{% url 'account:login' %}" class="text-center">ورود</a>
+          </p>
+
+        <p class="mb-2 mr-2">
+          <a href="{% url 'account:password_reset' %}">پسور خود را فراموش کرده‌اید؟</a>
+        </p>
+        
+        </div>
+        <!-- End Card Footer -->
+
+
+      </div>
+      <!-- End Card Body -->
+
+    </div>
+  </div>
+
+
+{% endblock content %}

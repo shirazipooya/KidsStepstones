@@ -1,4 +1,4 @@
-{% extends 'registration/base.html' %}
+{% extends 'account/base.html' %}
 {% load widget_tweaks %}
 {% load static %}
 
@@ -84,11 +84,11 @@
         <div class="card-footer border">
 
         <p class="mb-2 mr-2">
-          <a href="forgot-password.html">پسور خود را فراموش کرده‌اید؟</a>
+          <a href="{% url 'account:password_reset' %}">پسور خود را فراموش کرده‌اید؟</a>
         </p>
         
         <p class="mb-0 mr-2">
-          <a href="register.html" class="text-center">ایجاد حساب کاربری جدید</a>
+          <a href="{% url 'account:register' %}" class="text-center">ایجاد حساب کاربری جدید</a>
         </p>
         </div>
         <!-- End Card Footer -->

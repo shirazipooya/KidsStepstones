@@ -82,19 +82,3 @@ class Profile(LoginRequiredMixin, UpdateView):
             {'user': self.request.user}
         )
         return kwargs
-
-
-class Login(LoginView):
-    
-    def get_success_url(self):
-        user = self.request.user
-        if user.is_superuser or user.is_author:
-            return reverse_lazy("dashboard:home")
-        else:
-            return reverse_lazy("dashboard:profile")
-
-
-
-class PasswordChange(PasswordChangeView):
-    success_url = reverse_lazy("dashboard:password_change_done")
-    template_name = "registration/password_change_form.html"  

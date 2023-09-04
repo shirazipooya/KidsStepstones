@@ -1,0 +1,45 @@
+{% extends 'account/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+
+{% block styleBody %}
+    class="hold-transition login-page"
+{% endblock styleBody %}
+
+{% block content %}
+
+
+<div class="login-box">
+  <div class="card card-outline card-primary">
+
+
+    <div class="card-header text-center">
+        <a href="/" class="logo">
+          <img src="{% static 'img/logo - primary.png' %}" width="250">
+        </a>
+    </div>
+    <div class="card-body">
+        {% if form.non_field_errors %}
+          <div class="text-center alert alert-danger" role="alert">
+            {% for error in form.non_field_errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+      <p class="login-box-msg text-justify">لینک فعال سازی منقضی شده است. دوباره امتحان کنید.</p>
+      <div class="card-footer border mt-3">
+      <p class=" mb-1 mr-2">
+        <a href="{% url 'account:login' %}">ورود</a>
+      </p>
+        <p class="mb-0 mr-2">
+          <a href="{% url 'account:register' %}" class="text-center">ایجاد حساب کاربری جدید</a>
+        </p>
+    </div>
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+
+
+{% endblock content %}
