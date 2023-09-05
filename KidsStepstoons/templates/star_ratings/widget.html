@@ -1,0 +1,8 @@
+{% extends "star_ratings/widget_base.html" %}
+{% block rating_detail %}
+    {% if not user.is_authenticated %}
+    <div class="py-1">
+        برای رای دادن به مقاله باید <a class="text-info" href="{% url 'account:login' %}">وارد سایت</a> شوید.
+    </div>
+    {% else %}{% endif %}
+{% endblock %}

@@ -2,6 +2,7 @@
 {% load humanize %}
 {% load base_tags %}
 {% load comment_tags %}
+{% load ratings %}
 
 {% block content %}
   <main id="main">
@@ -21,6 +22,10 @@
                   {% special_badge %}
                 {% endif %}
               </h3>
+              <div class="row" style="font-family: Sahel">
+                <span>تعداد بازدیدها: {{ object.hits.count }} عدد</span>
+                <span>{% ratings object %}</span>
+              </div>
               <img src="{{ object.thumbnail.url }}" alt="{{ object.title }}" class="img-fluid">
               <p>{{ object.body|safe }}</p>
             </div>

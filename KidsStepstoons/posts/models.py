@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.utils.html import format_html
 from django.contrib.contenttypes.fields import GenericRelation
 from comment.models import Comment
+from django_editorjs_fields import EditorJsTextField
 
 
 from extensions.utils import gregorian_to_jalali
@@ -21,11 +22,22 @@ class CategoryManager(models.Manager):
         return self.filter(status=True)
 
 
+class IPAddress(models.Model):
+    ip_address = models.GenericIPAddressField(verbose_name='آدرس آی‌پی')
+
+    class Meta:
+        verbose_name = 'آدرس آی‌پی'
+        verbose_name_plural = 'آدرس‌های آی‌پی'
+
+    def __str__(self):
+        return self.ip_address
+
+
 class Category(models.Model):
     
     parent = models.ForeignKey('self', default=None, null=True, blank=True, on_delete=models.SET_NULL, related_name='children', verbose_name='زیردسته')
-    title = models.CharField(max_length=200, verbose_name='عنوان دسته‌بندی')
-    slug = models.SlugField(max_length=100, unique=True, verbose_name='آدرس دسته‌بندی')
+    title = models.CharField(max_length=200, verbose_name='عنوان دسته‌بندی', default='عمومی')
+    slug = models.SlugField(max_length=100, unique=True, verbose_name='آدرس دسته‌بندی', default='general')
     status = models.BooleanField(default=True, verbose_name='آیا نمایش داده شود؟')
     psition = models.IntegerField(unique=True, verbose_name='موقعیت')
     
@@ -53,6 +65,7 @@ class Post(models.Model):
     status = models.CharField(max_length=1, choices=(('d', 'پیش‌نویس'), ('p', 'منتشرشده'), ('i', 'در حال بررسی'), ('b', 'برگشت داده شده')), default='d', verbose_name='وضعیت انتشار')
     is_special = models.BooleanField(default=False, verbose_name='مقاله ویژه')
     comments = GenericRelation(Comment)
+    hits = models.ManyToManyField(IPAddress, through="PostHit" ,blank=True, related_name='hits', verbose_name='بازدید')
     
     class Meta:
         verbose_name = 'پست'
@@ -86,3 +99,10 @@ class Post(models.Model):
     category_to_str.short_description = 'دسته‌بندی‌ها'
     
     objects = PostManager()
+
+
+
+class PostHit(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='پست')
+    ip_address = models.ForeignKey(IPAddress, on_delete=models.CASCADE, verbose_name='آدرس آی‌پی')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='زمان ایجاد')

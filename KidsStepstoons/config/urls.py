@@ -10,6 +10,7 @@ urlpatterns = [
     path('', include('account.urls'), name='account'),
     path('dashboard/', include('dashboard.urls'), name='dashboard'),
     path('comment/', include('comment.urls')),
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
 ]
 
 if settings.DEBUG:

@@ -6,40 +6,55 @@
 
     <ul class="nav nav-pills custom-tab-nav mb-4" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="pills-popular-tab" data-bs-toggle="pill" data-bs-target="#pills-popular" type="button" role="tab" aria-controls="pills-popular" aria-selected="true">محبوب‌ترین‌ها</button>
+            <button class="nav-link active" id="pills-latest-tab" data-bs-toggle="pill" data-bs-target="#pills-latest" type="button" role="tab" aria-controls="pills-latest" aria-selected="true">تازه‌ها</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-latest-tab" data-bs-toggle="pill" data-bs-target="#pills-latest" type="button" role="tab" aria-controls="pills-latest" aria-selected="false">تازه‌ها</button>
+            <button class="nav-link" id="pills-pop-tab" data-bs-toggle="pill" data-bs-target="#pills-pop" type="button" role="tab" aria-controls="pills-pop" aria-selected="false">محبوب‌ترین‌ها</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-hot-tab" data-bs-toggle="pill" data-bs-target="#pills-hot" type="button" role="tab" aria-controls="pills-hot" aria-selected="false">داغ‌ترین‌ها</button>
         </li>
     </ul>
 
     <div class="tab-content" id="pills-tabContent">
 
-        <!-- Start Popular -->
-        <div class="tab-pane fade show active" id="pills-popular" role="tabpanel" aria-labelledby="pills-popular-tab">
-            {% for p in all_posts|slice:":10" %}
+        <!-- Start Latest -->
+        <div class="tab-pane fade show active" id="pills-latest" role="tabpanel" aria-labelledby="pills-latest-tab">
+            {% for new_post in new_posts|slice:":10" %}
             <div class="post-entry-1 border-bottom">
                 <div class="post-meta">
-                    {% url 'posts:author' p.author as author_url %}
-                    {% show_name_date author_url p.author.get_full_name p.publish|naturaltime %}
+                    {% show_name_date_category new_post.author.get_full_name new_post.publish|naturaltime new_post.category.all %}
                 </div>
-                <h2 class="mb-2"><a href="#">{{ p.title }}</a></h2>
+                <h2 class="mb-2"><a href="#">{{ new_post.title }}</a></h2>
             </div>
             {% endfor %}
         </div> 
-        <!-- End Popular -->
+        <!-- End Latest -->
 
-        <!-- Start Latest -->
-        <div class="tab-pane fade" id="pills-latest" role="tabpanel" aria-labelledby="pills-latest-tab">
-            {% for post in all_posts %}
+        <!-- Start Popular -->
+        <div class="tab-pane fade" id="pills-pop" role="tabpanel" aria-labelledby="pills-pop-tab">
+            {% for pop_post in pop_posts %}
             <div class="post-entry-1 border-bottom">
                 <div class="post-meta">
-                    {% show_name_date_category 'پویا' post.publish|naturaltime post.category.all %}
+                    {% show_name_date_category pop_post.author.get_full_name pop_post.publish|naturaltime pop_post.category.all %}
                 </div>
-                <h2 class="mb-2"><a href="#">{{ p.title }}</a></h2>
+                <h2 class="mb-2"><a href="#">{{ pop_post.title }}</a></h2>
             </div>
             {% endfor %}
         </div>
-        <!-- End Latest -->
+        <!-- End Popular -->
+
+        <!-- Start Hot -->
+        <div class="tab-pane fade" id="pills-hot" role="tabpanel" aria-labelledby="pills-hot-tab">
+            {% for hot_post in hot_posts %}
+            <div class="post-entry-1 border-bottom">
+                <div class="post-meta">
+                    {% show_name_date_category hot_post.author.get_full_name hot_post.publish|naturaltime hot_post.category.all %}
+                </div>
+                <h2 class="mb-2"><a href="#">{{ hot_post.title }}</a></h2>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- End Hot -->
     </div>
 </div>

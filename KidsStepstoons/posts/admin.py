@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Category
+from .models import Post, Category, IPAddress
 
 admin.site.site_header = "مدیریت وبلاگ همقدم با کودک"
 
@@ -38,3 +38,4 @@ class PostAdmin(admin.ModelAdmin):
     actions = [make_published, make_draft]
 
 admin.site.register(Post, PostAdmin)
+admin.site.register(IPAddress)
