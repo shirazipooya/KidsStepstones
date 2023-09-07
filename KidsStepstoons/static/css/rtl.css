@@ -78,8 +78,8 @@
 }
 
 body {
-    direction: rtl;
-    text-align: right;
+    direction: rtl !important;
+    text-align: right !important;
 }
 
 p {

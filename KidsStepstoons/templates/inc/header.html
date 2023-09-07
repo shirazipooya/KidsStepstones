@@ -2,12 +2,20 @@
 
 <!-- ======= Header ======= -->
 <header id="header" class="header d-flex align-items-center fixed-tofa-pull-right">
-<div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
+
+
+
+<div class="container-fluid container-xl d-flex justify-content-between bd-highlight">
+    <div class="p-2 bd-highlight">
     <a href="{% url 'home:home' %}" class="logo d-flex align-items-center">
         <img src="{% static 'img/logo.png' %}" alt="">
     </a>
 
+
+    </div>
+    <div class="p-2 bd-highlight">
+        
     <nav id="navbar" class="navbar">
     <ul>
         <li><a href="{% url 'home:home' %}">خانه</a></li>
@@ -23,18 +31,30 @@
         {% endfor %}
 
     </ul>
-    </nav><!-- .navbar -->
+    </nav>
 
+
+    </div>
+    <div class="p-2 bd-highlight">
+        
     <div class="form-inline d-inline d-flex align-items-center align-self-center">
         <a href="{% url 'dashboard:home' %}" class="mx-2" data-toggle="tooltip" data-placement="top" title="داشبورد مدیریتی"><span class="bi bi-speedometer"></span></a>
-        <form action="{% url 'posts:search' %}" >
+        <form class="px-1" action="{% url 'posts:search' %}" >
             <input name="q" class="form-control mr-sm-2" type="search" placeholder="جستجو ...">
         </form>
+        <div class="position-relative">
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </div>
         
     </div>
-    <div class="position-relative">
-        <i class="bi bi-list mobile-nav-toggle"></i>
+
     </div>
-</div>
+  </div>
+
+
+
+
+
+
 
 </header><!-- End Header -->

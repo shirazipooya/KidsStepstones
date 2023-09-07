@@ -10,7 +10,7 @@
       <div class="container-fluid">
         <div class="row">
           <!-- Start Single Post Content -->
-          <div class="col-md-9 post-content" data-aos="fade-up">
+          <div class="col-md-8 post-content" data-aos="fade-up">
             <div class="single-post">
               <div class="post-meta">
                 {% url 'posts:author' object.author as author_url %}
@@ -38,7 +38,7 @@
             <!-- End Single Post Comment Form --> {% endcomment %}
           </div>
           <!-- Start Sidebar -->
-          <div class="col-md-3">
+          <div class="col-md-4 sidebar-content">
             {% include "posts/inc/sidebar.html" %}
           </div>
           <!-- End Sidebar -->

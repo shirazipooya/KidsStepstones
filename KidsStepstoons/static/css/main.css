@@ -755,8 +755,13 @@ li {
 } */
 
 .post-content {
-  padding-left: 10%;
+  padding-left: 3%;
   padding-right: 10%;
+}
+
+.sidebar-content {
+  padding-left: 10%;
+  padding-right: 3%;
 }
 
 @media (max-width: 768px) {

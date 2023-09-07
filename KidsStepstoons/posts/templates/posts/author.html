@@ -6,7 +6,7 @@
 {% block content %}
   <main id="main">
     <section class="single-post-content">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
           <div class="d-flex align-items-center text-start author pb-4">
             <div class="photo"><img src={{ author.avatar.url }} alt="" class="img-fluid"></div>
@@ -14,7 +14,7 @@
                   {{ author.get_full_name }}
               </div>
           </div>
-          <div class="col-md-9 post-content" data-aos="fade-up">
+          <div class="col-md-8 post-content" data-aos="fade-up">
 
             <!-- Start List Post Content -->
             {% for post in object_list %}
@@ -81,7 +81,7 @@
           </div>
 
           <!-- Start Sidebar -->
-          <div class="col-md-3">
+          <div class="col-md-4 sidebar-content">
             {% include "posts/inc/sidebar.html" %}
           </div>
           <!-- End Sidebar -->

@@ -5,9 +5,9 @@
 {% block content %}
   <main id="main">
     <section class="single-post-content">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
-          <div class="col-md-9 post-content" data-aos="fade-up">
+          <div class="col-md-8 post-content" data-aos="fade-up">
 
             <!-- Start List Post Content -->
             <h3 class="category-title">{{ author.get_full_name }}</h3>
@@ -75,7 +75,7 @@
           </div>
 
           <!-- Start Sidebar -->
-          <div class="col-md-3">
+          <div class="col-md-4 sidebar-content">
             {% include "posts/inc/sidebar.html" %}
           </div>
           <!-- End Sidebar -->
