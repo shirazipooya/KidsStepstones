@@ -25,7 +25,7 @@
                 <div class="post-meta">
                     {% show_name_date_category new_post.author.get_full_name new_post.publish|naturaltime new_post.category.all %}
                 </div>
-                <h2 class="mb-2"><a href="#">{{ new_post.title }}</a></h2>
+                <h2 class="mb-2"><a href="{% url 'posts:post' new_post.slug %}">{{ new_post.title }}</a></h2>
             </div>
             {% endfor %}
         </div> 
@@ -38,7 +38,7 @@
                 <div class="post-meta">
                     {% show_name_date_category pop_post.author.get_full_name pop_post.publish|naturaltime pop_post.category.all %}
                 </div>
-                <h2 class="mb-2"><a href="#">{{ pop_post.title }}</a></h2>
+                <h2 class="mb-2"><a href="{% url 'posts:post' pop_post.slug %}">{{ pop_post.title }}</a></h2>
             </div>
             {% endfor %}
         </div>
@@ -51,7 +51,7 @@
                 <div class="post-meta">
                     {% show_name_date_category hot_post.author.get_full_name hot_post.publish|naturaltime hot_post.category.all %}
                 </div>
-                <h2 class="mb-2"><a href="#">{{ hot_post.title }}</a></h2>
+                <h2 class="mb-2"><a href="{% url 'posts:post' hot_post.slug %}">{{ hot_post.title }}</a></h2>
             </div>
             {% endfor %}
         </div>
