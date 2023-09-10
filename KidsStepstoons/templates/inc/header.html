@@ -21,12 +21,19 @@
         <li><a href="{% url 'home:home' %}">خانه</a></li>
         {% for cat in categories %}        
             {% if cat.parent == None %}
-                <li class="dropdown">
-                    <a href="{% url 'posts:category' cat.slug %}"><span>{{ cat.title }}</span> <i class="bi bi-chevron-down dropdown-indicator px-1"></i></a>
-                    {% if cat.children.active %}
-                        {% include 'inc/category_loop.html' %}
-                    {% endif %}
-                </li>
+                {% if cat.children.active %}
+                    <li class="dropdown">
+                        <a href="{% url 'posts:category' cat.slug %}"><span>{{ cat.title }}</span> <i class="bi bi-chevron-down dropdown-indicator px-1"></i></a>
+                        {% if cat.children.active %}
+                            {% include 'inc/category_loop.html' %}
+                        {% endif %}
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'posts:category' cat.slug %}"><span>{{ cat.title }}</span></a>
+
+                    </li>
+                {% endif %}   
             {% endif %}
         {% endfor %}
 
